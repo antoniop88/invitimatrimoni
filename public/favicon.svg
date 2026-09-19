@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-  <rect width="128" height="128" fill="#F7F3EB"/>
-  <text x="64" y="78" text-anchor="middle" font-family="Georgia, serif" font-size="42" fill="#414A39">G&amp;A</text>
+  <rect width="128" height="128" fill="#FAF6EF"/>
+  <circle cx="64" cy="64" r="46" fill="none" stroke="#793E49" stroke-width="2"/>
+  <text x="64" y="76" text-anchor="middle" font-family="Georgia, serif" font-size="36" fill="#34473E">G&amp;A</text>
 </svg>

@@ -128,45 +128,38 @@ defineProps<{
 
     <g v-else>
       <path
-        d="M24 62C28 44 36 34 44 34C52 34 56 44 64 62"
+        d="M30 30v28M58 28v30"
         stroke="currentColor"
         stroke-width="1.2"
         stroke-linecap="round"
       />
       <circle
-        cx="32"
-        cy="36"
-        r="7"
+        cx="30"
+        cy="22"
+        r="6"
         fill="var(--color-blush)"
         stroke="currentColor"
         stroke-width="1"
       />
       <circle
-        cx="56"
-        cy="34"
-        r="7"
+        cx="58"
+        cy="20"
+        r="6"
         fill="var(--color-sand)"
         stroke="currentColor"
         stroke-width="1"
       />
       <path
-        d="M40 62c6-10 14-8 20 0"
+        d="M30 42c8 10 20 10 28 0"
         stroke="var(--color-bordeaux)"
         stroke-width="1.2"
         stroke-linecap="round"
       />
       <path
-        d="M64 22c8 2 12 10 8 16"
+        d="M24 58l6 10M36 58l-6 10M52 58l6 10M64 56l-6 12"
         stroke="currentColor"
-        stroke-width="1"
+        stroke-width="1.1"
         stroke-linecap="round"
-      />
-      <circle
-        cx="74"
-        cy="20"
-        r="3"
-        stroke="currentColor"
-        stroke-width="1"
       />
     </g>
   </svg>
