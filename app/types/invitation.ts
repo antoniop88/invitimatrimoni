@@ -25,6 +25,11 @@ export interface InvitationDateTime {
    * Example: 2027-06-19T16:30:00+02:00
    */
   ceremonyAt: string
+  /**
+   * Optional celebration end used by the static calendar files.
+   * Leave empty to omit DTEND / Google Calendar end — never invent one in the UI.
+   */
+  endsAt: string
   /** IANA timezone, e.g. Europe/Rome */
   timezone: string
 }
@@ -38,6 +43,12 @@ export interface InvitationLocation {
   /** Map search / directions URL (territory-level, not a fake precise address) */
   mapUrl: string
   mapLabel: string
+  /**
+   * Real directions URL. Empty until a precise destination is configured.
+   * “Come arrivare” is shown only when this or `address` is set.
+   */
+  directionsUrl: string
+  directionsLabel: string
   notes: string
 }
 
@@ -147,12 +158,26 @@ export interface InvitationSections {
   rsvp: {
     title: string
     body: string
-    ctaLabel: string
+    attendingTitle: string
+    attendingSubtitle: string
+    declinedTitle: string
+    declinedSubtitle: string
+    guestCountLabel: string
+    guestCountHint: string
+    companionsLabel: string
+    companionsHint: string
+    messageLabel: string
+    previewHeading: string
+    previewEmpty: string
     demoNote: string
+    whatsappNote: string
+    whatsappCta: string
+    copyCta: string
+    copiedLabel: string
+    copyFallback: string
+    afterWhatsapp: string
+    retryLabel: string
     closedMessage: string
-    successAttending: string
-    successDeclined: string
-    previewLabel: string
   }
   registry: InvitationRegistry
   faq: {
@@ -180,10 +205,12 @@ export interface InvitationSections {
   closing: InvitationClosing
   share: {
     buttonLabel: string
+    copyLabel: string
     copiedLabel: string
     text: string
   }
   calendar: {
+    groupLabel: string
     icsLabel: string
     googleLabel: string
     /** Absolute or root-relative path to static .ics */
@@ -193,6 +220,23 @@ export interface InvitationSections {
     weekdays: string[]
     highlightedDay: number
   }
+}
+
+export type RsvpMode = 'demo' | 'whatsapp'
+
+/**
+ * Client-side RSVP channel. No backend: WhatsApp opens a prefilled chat,
+ * demo only previews and copies the message.
+ */
+export interface InvitationRsvpChannel {
+  mode: RsvpMode
+  /**
+   * Destination in international form, digits only (e.g. 393331234567).
+   * No “+”, spaces or automatic country prefix. Empty → stay in demo.
+   */
+  whatsappNumber: string
+  /** Inclusive upper bound for “numero totale dei partecipanti”. */
+  maxGuests: number
 }
 
 /**
@@ -230,6 +274,7 @@ export interface InvitationConfig {
   /** RSVP deadline as ISO date (YYYY-MM-DD) */
   rsvpDeadline: string
   rsvpDeadlineLabel: string
+  rsvpChannel: InvitationRsvpChannel
   sections: InvitationSections
   features: InvitationFeatures
 }

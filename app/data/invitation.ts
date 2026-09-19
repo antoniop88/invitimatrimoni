@@ -5,7 +5,7 @@ import type { InvitationConfig } from '~/types/invitation'
  * Preview wording must never appear in visible page body text,
  * except the RSVP demo note and the footer disclaimer.
  *
- * RSVP transport: see `app/utils/rsvpTransport.ts` (demo mode in code/README only).
+ * RSVP: see `rsvpChannel` in this file and `app/utils/rsvpMessage.ts`.
  */
 export const invitation: InvitationConfig = {
   // DEV PLACEHOLDER — replace with the real public URL before sharing the link.
@@ -24,6 +24,8 @@ export const invitation: InvitationConfig = {
     dinnerTime: '20:00',
     partyTime: '22:00',
     ceremonyAt: '2027-06-19T16:30:00+02:00',
+    // Matches the existing static ICS / Google Calendar (party continues to 00:30).
+    endsAt: '2027-06-20T00:30:00+02:00',
     timezone: 'Europe/Rome',
   },
   location: {
@@ -33,6 +35,8 @@ export const invitation: InvitationConfig = {
     territory: 'Valle d\'Itria, Puglia',
     mapUrl: 'https://www.google.com/maps/search/?api=1&query=Valle+d%27Itria',
     mapLabel: 'Esplora la Valle d\'Itria',
+    directionsUrl: '',
+    directionsLabel: 'Come arrivare',
     notes: '',
   },
   schedule: [
@@ -126,6 +130,12 @@ export const invitation: InvitationConfig = {
   ],
   rsvpDeadline: '2027-05-20',
   rsvpDeadlineLabel: '20 maggio 2027',
+  rsvpChannel: {
+    mode: 'demo',
+    // International digits only, no +. Leave empty to keep demo mode.
+    whatsappNumber: '',
+    maxGuests: 12,
+  },
   sections: {
     opening: {
       kicker: 'Con gioia vi invitiamo al nostro matrimonio',
@@ -191,12 +201,26 @@ export const invitation: InvitationConfig = {
     rsvp: {
       title: 'Ci sarai?',
       body: 'Ci farebbe felici averti con noi.',
-      ctaLabel: 'Prova la conferma',
-      demoNote: 'Questa è una demo: la risposta non verrà inviata.',
+      attendingTitle: '🎉 Ci sarò!',
+      attendingSubtitle: 'Non vedo l’ora di festeggiare con voi.',
+      declinedTitle: '🤍 Non potrò esserci',
+      declinedSubtitle: 'Vi mando comunque un grande abbraccio.',
+      guestCountLabel: 'Numero totale dei partecipanti',
+      guestCountHint: 'Incluso te',
+      companionsLabel: 'Nomi degli accompagnatori',
+      companionsHint: 'Facoltativo',
+      messageLabel: 'Messaggio agli sposi',
+      previewHeading: 'Anteprima del messaggio',
+      previewEmpty: 'Il messaggio si compone mentre scrivi.',
+      demoNote: 'Anteprima dimostrativa: nessuna risposta viene inviata agli sposi.',
+      whatsappNote: 'Si aprirà WhatsApp con il messaggio già pronto. Premi Invia nella chat per farci arrivare la risposta.',
+      whatsappCta: 'Continua su WhatsApp',
+      copyCta: 'Copia messaggio',
+      copiedLabel: 'Messaggio copiato.',
+      copyFallback: 'La copia automatica non è disponibile. Seleziona il testo e copialo tu.',
+      afterWhatsapp: 'Completa l’invio su WhatsApp. Se non si è aperto, riprova oppure copia il messaggio.',
+      retryLabel: 'Riprova',
       closedMessage: 'Le conferme sono chiuse. Per qualsiasi necessità, scriveteci direttamente.',
-      successAttending: 'Se fosse l’invito vero, avremmo ricevuto la tua presenza. Grazie — non vediamo l’ora di festeggiare con voi.',
-      successDeclined: 'Se fosse l’invito vero, avremmo ricevuto il tuo messaggio. Grazie per avercelo fatto sapere: vi portiamo con noi lo stesso.',
-      previewLabel: 'Anteprima della conferma — nulla è stato inviato.',
     },
     registry: {
       title: 'Un pensiero per noi',
@@ -281,12 +305,14 @@ export const invitation: InvitationConfig = {
     },
     share: {
       buttonLabel: 'Condividi l\'invito',
+      copyLabel: 'Copia il link',
       copiedLabel: 'Link copiato.',
       text: 'Sei invitato al matrimonio di Giulia e Andrea — 19 giugno 2027, Valle d\'Itria.',
     },
     calendar: {
-      icsLabel: 'Aggiungi al calendario',
-      googleLabel: 'Apri in Google Calendar',
+      groupLabel: 'Aggiungi al calendario',
+      icsLabel: 'Scarica .ics',
+      googleLabel: 'Google Calendar',
       icsHref: '/evento.ics',
       // 16:30–00:30 Europe/Rome (CEST) → 14:30–22:30 UTC
       googleHref: 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=Matrimonio%20Giulia%20%26%20Andrea&dates=20270619T143000Z%2F20270619T223000Z&details=Cerimonia%20e%20festeggiamenti%20%E2%80%94%20Masseria%20degli%20Ulivi&location=Valle%20d%27Itria%2C%20Puglia',

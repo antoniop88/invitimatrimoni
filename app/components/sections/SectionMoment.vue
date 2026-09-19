@@ -9,7 +9,10 @@ const caption = invitation.sections.moment.caption
     id="momento"
     class="moment"
   >
-    <figure class="moment__figure">
+    <figure
+      class="moment__figure"
+      data-reveal
+    >
       <img
         class="moment__image"
         :src="image.src"

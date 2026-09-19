@@ -37,7 +37,7 @@
     />
 
     <!-- Top-left bouquet -->
-    <g transform="translate(18 22)">
+    <g class="illu-frame__flora illu-frame__flora--tl" transform="translate(18 22)">
       <path
         d="M92 176C70 128 36 108 22 128C8 148 28 176 62 178"
         stroke="currentColor"
@@ -97,7 +97,7 @@
     </g>
 
     <!-- Top-right sprig -->
-    <g transform="translate(430 18)">
+    <g class="illu-frame__flora illu-frame__flora--tr" transform="translate(438 8)">
       <path
         d="M96 36C72 58 48 96 62 128C74 154 112 148 118 118"
         stroke="currentColor"
@@ -144,7 +144,7 @@
     </g>
 
     <!-- Bottom-right bouquet -->
-    <g transform="translate(430 760)">
+    <g class="illu-frame__flora illu-frame__flora--br" transform="translate(438 792)">
       <path
         d="M48 28C78 48 118 42 148 18"
         stroke="currentColor"
@@ -205,7 +205,7 @@
     </g>
 
     <!-- Bottom-left sprig -->
-    <g transform="translate(16 790)">
+    <g class="illu-frame__flora illu-frame__flora--bl" transform="translate(10 818)">
       <path
         d="M28 88C48 64 86 48 118 62"
         stroke="currentColor"
@@ -249,5 +249,21 @@
   height: 100%;
   color: var(--color-forest);
   pointer-events: none;
+}
+
+@media (max-width: 639px) {
+  .illu-frame__flora--br,
+  .illu-frame__flora--bl {
+    transform-box: fill-box;
+    transform-origin: center;
+    scale: 0.78;
+  }
+
+  .illu-frame__flora--tl,
+  .illu-frame__flora--tr {
+    transform-box: fill-box;
+    transform-origin: top;
+    scale: 0.86;
+  }
 }
 </style>

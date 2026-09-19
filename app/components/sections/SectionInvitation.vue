@@ -25,12 +25,18 @@ const cells = Array.from({ length: JUNE_2027_LEAD + JUNE_DAYS }, (_, index) => {
           v-for="(line, index) in content.lines"
           :key="index"
           class="section-invitation__line"
+          data-reveal
+          :style="{ '--reveal-delay': `${index * 80}ms` }"
         >
           {{ line }}
         </p>
       </div>
 
-      <p class="section-invitation__body">
+      <p
+        class="section-invitation__body"
+        data-reveal
+        style="--reveal-delay: 160ms"
+      >
         {{ content.body }}
       </p>
 
@@ -79,23 +85,7 @@ const cells = Array.from({ length: JUNE_2027_LEAD + JUNE_DAYS }, (_, index) => {
 
       <SectionCountdown />
 
-      <p class="section-invitation__links no-print">
-        <a
-          class="section-invitation__cal-link"
-          :href="calendar.icsHref"
-          download
-        >
-          {{ calendar.icsLabel }}
-        </a>
-        <a
-          class="section-invitation__cal-link"
-          :href="calendar.googleHref"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {{ calendar.googleLabel }}
-        </a>
-      </p>
+      <UiCalendarActions />
     </div>
   </section>
 </template>
@@ -190,21 +180,5 @@ const cells = Array.from({ length: JUNE_2027_LEAD + JUNE_DAYS }, (_, index) => {
   border: 1.4px solid var(--color-bordeaux);
   border-radius: 50%;
   transform: rotate(-8deg);
-}
-
-.section-invitation__links {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.25rem 1.25rem;
-}
-
-.section-invitation__cal-link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 2.75rem;
-  font-size: var(--text-small);
-  color: var(--color-muted);
-  text-underline-offset: 0.22em;
 }
 </style>

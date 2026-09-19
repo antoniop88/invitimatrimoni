@@ -11,10 +11,17 @@ const images = invitation.images.story
   >
     <div class="section-story__inner">
       <header class="section-story__header">
-        <h2 class="section-story__title">
+        <h2
+          class="section-story__title"
+          data-reveal
+        >
           {{ story.title }}
         </h2>
-        <p class="section-story__body">
+        <p
+          class="section-story__body"
+          data-reveal
+          style="--reveal-delay: 80ms"
+        >
           {{ story.body }}
         </p>
       </header>
@@ -23,6 +30,8 @@ const images = invitation.images.story
         <figure
           v-if="images[0]"
           class="section-story__figure section-story__figure--one"
+          data-reveal="fade"
+          style="--reveal-delay: 90ms"
         >
           <img
             :src="images[0].src"
@@ -37,6 +46,8 @@ const images = invitation.images.story
         <figure
           v-if="images[1]"
           class="section-story__figure section-story__figure--two"
+          data-reveal="fade"
+          style="--reveal-delay: 170ms"
         >
           <img
             :src="images[1].src"

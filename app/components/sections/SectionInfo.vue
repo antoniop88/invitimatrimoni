@@ -9,7 +9,10 @@ const details = invitation.sections.details
     class="section-info"
   >
     <div class="section-info__inner">
-      <h2 class="section-info__title">
+      <h2
+        class="section-info__title"
+        data-reveal
+      >
         {{ details.title }}
       </h2>
 

@@ -20,146 +20,149 @@ defineProps<{
     <circle
       cx="44"
       cy="44"
-      r="42"
+      r="41"
       stroke="currentColor"
-      stroke-width="0.8"
-      opacity="0.28"
+      stroke-width="1.05"
+      opacity="0.42"
     />
 
+    <!-- Cerimonia: arco e fedi -->
     <g v-if="moment === 'ceremony'">
       <path
-        d="M22 62V38C22 24 32 16 44 16C56 16 66 24 66 38V62"
+        d="M20 58V40C20 24 31 16 44 16C57 16 68 24 68 40V58"
         stroke="currentColor"
-        stroke-width="1.2"
+        stroke-width="1.45"
+        stroke-linecap="round"
+      />
+      <path
+        d="M20 58h10M68 58H58"
+        stroke="currentColor"
+        stroke-width="1.45"
         stroke-linecap="round"
       />
       <circle
         cx="38"
-        cy="50"
-        r="8"
+        cy="54"
+        r="9"
         stroke="var(--color-bordeaux)"
-        stroke-width="1.3"
+        stroke-width="1.55"
       />
       <circle
         cx="50"
-        cy="50"
-        r="8"
+        cy="54"
+        r="9"
         stroke="var(--color-bordeaux)"
-        stroke-width="1.3"
-      />
-      <ellipse
-        cx="44"
-        cy="26"
-        rx="5"
-        ry="9"
-        fill="var(--color-blush)"
-        stroke="currentColor"
-        stroke-width="0.85"
+        stroke-width="1.55"
       />
     </g>
 
+    <!-- Aperitivo: due calici -->
     <g v-else-if="moment === 'toast'">
       <path
-        d="M28 24H42L40 46C40 54 34 58 28 52C22 46 24 36 28 24Z"
+        d="M27 22h16l-2.2 22c-.6 8-6.2 12-12.2 7.2C23 46.6 25 36 27 22Z"
         fill="var(--color-blush)"
         stroke="currentColor"
-        stroke-width="1.15"
+        stroke-width="1.4"
         stroke-linejoin="round"
       />
       <path
-        d="M46 28H60L58 50C58 58 52 62 46 56C40 50 42 40 46 28Z"
+        d="M45 26h16l-2.2 22c-.6 8-6.2 12-12.2 7.2C41 50.6 43 40 45 26Z"
         fill="var(--color-sand)"
-        fill-opacity="0.7"
+        fill-opacity="0.85"
         stroke="currentColor"
-        stroke-width="1.15"
+        stroke-width="1.4"
         stroke-linejoin="round"
       />
       <path
-        d="M35 58V68M53 62V70M28 68H42M46 70H60"
+        d="M33 56v14M54 60v12M26 70h16M46 72h16"
         stroke="currentColor"
-        stroke-width="1.1"
+        stroke-width="1.4"
         stroke-linecap="round"
       />
     </g>
 
+    <!-- Cena: piatto e posate -->
     <g v-else-if="moment === 'dinner'">
       <ellipse
-        cx="44"
-        cy="52"
-        rx="22"
-        ry="10"
+        cx="46"
+        cy="48"
+        rx="18"
+        ry="18"
         fill="var(--color-blush)"
         stroke="currentColor"
-        stroke-width="1.1"
+        stroke-width="1.4"
       />
       <ellipse
-        cx="44"
-        cy="50"
-        rx="12"
-        ry="5.5"
+        cx="46"
+        cy="48"
+        rx="11"
+        ry="11"
         stroke="currentColor"
-        stroke-width="0.9"
+        stroke-width="1.15"
       />
       <path
-        d="M28 24l4 8M44 18v10M60 24l-4 8"
-        stroke="var(--color-bordeaux)"
-        stroke-width="1.15"
+        d="M20 24v28M16.5 24v11M23.5 24v11M20 52v12"
+        stroke="currentColor"
+        stroke-width="1.4"
         stroke-linecap="round"
       />
-      <circle
-        cx="28"
-        cy="22"
-        r="1.6"
-        fill="var(--color-bordeaux)"
+      <path
+        d="M70 24c4 8 4 16 0 22M70 46v18"
+        stroke="currentColor"
+        stroke-width="1.4"
+        stroke-linecap="round"
       />
-      <circle
-        cx="44"
-        cy="16"
-        r="1.8"
-        fill="var(--color-bordeaux)"
-      />
-      <circle
-        cx="60"
-        cy="22"
-        r="1.6"
-        fill="var(--color-bordeaux)"
+      <path
+        d="M66 24h8"
+        stroke="var(--color-bordeaux)"
+        stroke-width="1.35"
+        stroke-linecap="round"
       />
     </g>
 
+    <!-- Festa: note musicali -->
     <g v-else>
-      <path
-        d="M30 30v28M58 28v30"
-        stroke="currentColor"
-        stroke-width="1.2"
-        stroke-linecap="round"
-      />
-      <circle
+      <ellipse
         cx="30"
-        cy="22"
-        r="6"
+        cy="58"
+        rx="8"
+        ry="5.5"
         fill="var(--color-blush)"
         stroke="currentColor"
-        stroke-width="1"
+        stroke-width="1.35"
       />
-      <circle
-        cx="58"
-        cy="20"
-        r="6"
+      <path
+        d="M38 58V26"
+        stroke="currentColor"
+        stroke-width="1.5"
+        stroke-linecap="round"
+      />
+      <ellipse
+        cx="56"
+        cy="64"
+        rx="8"
+        ry="5.5"
         fill="var(--color-sand)"
         stroke="currentColor"
-        stroke-width="1"
+        stroke-width="1.35"
       />
       <path
-        d="M30 42c8 10 20 10 28 0"
-        stroke="var(--color-bordeaux)"
-        stroke-width="1.2"
-        stroke-linecap="round"
-      />
-      <path
-        d="M24 58l6 10M36 58l-6 10M52 58l6 10M64 56l-6 12"
+        d="M64 64V32"
         stroke="currentColor"
-        stroke-width="1.1"
+        stroke-width="1.5"
         stroke-linecap="round"
+      />
+      <path
+        d="M38 26c8-6 18-6 26 0"
+        stroke="var(--color-bordeaux)"
+        stroke-width="1.55"
+        stroke-linecap="round"
+      />
+      <circle
+        cx="44"
+        cy="22"
+        r="2.2"
+        fill="var(--color-bordeaux)"
       />
     </g>
   </svg>

@@ -1,7 +1,7 @@
 # Invito digitale — Giulia & Andrea
 
 Landing one-page per l’invito di matrimonio di Giulia e Andrea (Valle d’Itria, 19 giugno 2027).
-La pagina si legge come una partecipazione illustrata: riferimenti di anteprima restano nel `<title>`, nel README e nel codice (transport RSVP), con una nota visibile solo sul cartoncino RSVP e un disclaimer nel footer.
+La pagina si legge come una partecipazione illustrata: riferimenti di anteprima restano nel `<title>`, nel README e nel codice, con una nota visibile sul cartoncino RSVP (in modalità demo) e un disclaimer nel footer.
 
 ## Comandi
 
@@ -22,11 +22,35 @@ Output statico da pubblicare: **`.output/public`**.
 | Cosa | Dove |
 |---|---|
 | Testi, orari, feature flags, `siteUrl` | `app/data/invitation.ts` |
+| Modalità RSVP e numero WhatsApp | `app/data/invitation.ts` → `rsvpChannel` |
 | Tipi TypeScript | `app/types/invitation.ts` |
 | Colori / font / spaziature dei temi | `app/assets/css/themes.css` |
 | Stili globali, focus, reduced-motion, stampa | `app/assets/css/main.css`, `print.css` |
 | Illustrazioni SVG | `app/components/illustrations/` |
 | Immagini | `public/images/` (+ note in `public/images/ATTRIBUTIONS.md`) |
+
+## RSVP via WhatsApp
+
+Le conferme non passano da un backend: il sito apre WhatsApp (o, in demo, copia il messaggio) con il testo già pronto. **WhatsApp raccoglie le risposte in chat e non aggiorna automaticamente un elenco invitati.** Chi riceve i messaggi deve registrarli a mano.
+
+Configurazione in `app/data/invitation.ts`:
+
+```ts
+rsvpChannel: {
+  mode: 'whatsapp',          // oppure 'demo'
+  whatsappNumber: '393331234567', // solo cifre, con prefisso internazionale
+  maxGuests: 12,
+}
+```
+
+Regole:
+
+- `whatsappNumber` deve contenere il prefisso internazionale e **sole cifre** (es. `393331234567`). Non viene aggiunto `+39` in automatico.
+- Se il numero manca, è vuoto o non è utilizzabile, il sito resta in **modalità demo** anche se `mode` è `'whatsapp'`.
+- In demo: anteprima e copia del messaggio, nessuna chat verso numeri fittizi.
+- In WhatsApp: dopo «Continua su WhatsApp» si apre `https://wa.me/NUMERO?text=MESSAGGIO`. L’invio effettivo avviene solo quando l’invitato preme Invia nella chat.
+
+Non salvare le risposte in `localStorage`, analytics o log.
 
 ## Identità visiva
 
@@ -48,22 +72,19 @@ Attivarle cambia solo i flag: i componenti sono già pronti. La lista nozze rest
 `invitation.siteUrl` è un placeholder (`https://invito.example.com`).
 Aggiornarlo **prima** di condividere il link reale (serve per `og:image`, QR e testo di condivisione).
 Allineare anche la costante in `scripts/generate-static-assets.mjs` e rigenerare gli asset (`npm run assets`).
-
-## RSVP
-
-Interfaccia `RsvpTransport` in `app/utils/rsvpTransport.ts`.
-
-- Attivo: `createDemoTransport()` (ritardo simulato, nessuna rete, nessun salvataggio).
-- Futuro: in `createRsvpTransport()` restituire `createFormspreeTransport('https://formspree.io/f/…')`.
-
-Senza JavaScript il modulo è nascosto e compare un messaggio in `<noscript>`.
+La condivisione dal browser usa l’origine reale della pagina, senza hash né dati del modulo.
 
 ## File statici generati
 
-- `public/evento.ics` — calendario
+- `public/evento.ics` — calendario (`Europe/Rome`, inizio 16:30, fine 00:30 come da `datetime.endsAt`)
 - `public/qr-invito.svg` — QR verso `siteUrl`
 - `public/og-image.png` — 1200×630 per WhatsApp / Open Graph
 - `public/favicon.svg`, `favicon-32.png`, `apple-touch-icon.png`
+
+## Location
+
+In demo resta il link di esplorazione della Valle d’Itria.
+«Come arrivare» compare solo se in configurazione ci sono `location.address` o `location.directionsUrl` reali. Non inventare l’indirizzo della masseria.
 
 ## Asset e licenze
 
@@ -73,4 +94,5 @@ Vedi `public/images/ATTRIBUTIONS.md` (Unsplash License per le fotografie; illust
 
 - `siteUrl` e QR puntano al placeholder finché non li aggiornate.
 - Le fotografie sono dettagli nuziali (bouquet, mani, fedi), non ritratti di Giulia e Andrea.
+- Le risposte RSVP arrivano in chat WhatsApp: non c’è un database invitati sul sito.
 - `npm run generate` può mostrare un WARN Nitro/H3 su import inutilizzati (upstream Nuxt), senza bloccare la build.

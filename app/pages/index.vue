@@ -1,6 +1,9 @@
 <script setup lang="ts">
 const invitation = useInvitation()
 const { isDemoMode, hydrateThemeFromStorage } = useTheme()
+const pageRef = ref<HTMLElement | null>(null)
+
+useReveal(pageRef)
 
 const ogImage = computed(() => `${invitation.siteUrl.replace(/\/$/, '')}/og-image.png`)
 const description = 'Giulia e Andrea vi invitano a festeggiare il 19 giugno 2027 in Valle d\'Itria.'
@@ -40,7 +43,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="page">
+  <div
+    ref="pageRef"
+    class="page"
+  >
     <SectionOpening />
     <SiteHeader />
 

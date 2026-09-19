@@ -2,6 +2,13 @@
 const invitation = useInvitation()
 const place = invitation.sections.place
 const location = invitation.location
+
+const directionsHref = computed(() => {
+  if (location.directionsUrl.trim()) return location.directionsUrl.trim()
+  const address = [location.address, location.city].filter(part => part.trim()).join(', ')
+  if (!address) return ''
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`
+})
 </script>
 
 <template>
@@ -10,11 +17,18 @@ const location = invitation.location
     class="section-place"
   >
     <div class="section-place__inner">
-      <div class="section-place__drawing">
+      <div
+        class="section-place__drawing"
+        data-reveal
+      >
         <IlluMasseria />
       </div>
 
-      <h2 class="section-place__title">
+      <h2
+        class="section-place__title"
+        data-reveal
+        style="--reveal-delay: 80ms"
+      >
         {{ place.title }}
       </h2>
       <p class="section-place__name">
@@ -53,6 +67,19 @@ const location = invitation.location
           rel="noopener noreferrer"
         >
           {{ location.mapLabel }}
+        </a>
+      </p>
+      <p
+        v-if="directionsHref"
+        class="section-place__map"
+      >
+        <a
+          class="section-place__map-link"
+          :href="directionsHref"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {{ location.directionsLabel }}
         </a>
       </p>
     </div>

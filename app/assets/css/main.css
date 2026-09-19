@@ -19,6 +19,7 @@ html {
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height) + 0.6rem);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -51,7 +52,13 @@ body {
 
 section[id],
 footer[id] {
-  scroll-margin-top: calc(var(--header-height) + 0.6rem);
+  scroll-margin-top: 0;
+}
+
+@media (max-width: 639px) {
+  html {
+    --header-height: 6.2rem;
+  }
 }
 
 h1,
@@ -83,7 +90,7 @@ button,
 a.ui-button,
 .site-header__link,
 .opening__scroll,
-.section-day__calendar-link {
+.cal-actions__link {
   min-height: 2.75rem;
 }
 
@@ -124,21 +131,17 @@ html.js noscript {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .opening__card {
-    animation: invite-rise 1.05s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .illu-frame__draw {
+  html.js .illu-frame__draw {
     stroke-dasharray: 280;
     stroke-dashoffset: 280;
-    animation: draw-line 1.6s ease 0.35s forwards;
+    animation: draw-line 0.72s ease 0.12s forwards;
   }
 }
 
 @keyframes invite-rise {
   from {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translateY(14px);
   }
 
   to {
@@ -153,14 +156,32 @@ html.js noscript {
   }
 }
 
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .moment__figure,
-    .section-story__figure,
-    .section-place__drawing {
-      animation: invite-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 40%;
-    }
+/* One-shot reveals: hidden only after JS marks them pending. Prerender stays visible. */
+html.js [data-reveal].is-pending {
+  opacity: 0;
+}
+
+html.js [data-reveal]:not([data-reveal='fade']).is-pending {
+  transform: translateY(14px);
+}
+
+html.js [data-reveal].is-in {
+  opacity: 1;
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) var(--reveal-delay, 0ms);
+}
+
+html.js [data-reveal]:not([data-reveal='fade']).is-in {
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-reveal].is-pending,
+  html.js [data-reveal].is-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+    animation: none;
   }
 }
