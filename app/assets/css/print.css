@@ -1,0 +1,52 @@
+@media print {
+  @page {
+    size: A4;
+    margin: 16mm;
+  }
+
+  html,
+  body {
+    background: #fff !important;
+    color: #111 !important;
+    font-size: 11pt;
+  }
+
+  .no-print,
+  .page__theme,
+  .site-header,
+  .share-invite,
+  .section-rsvp,
+  .section-gallery,
+  .opening__scroll,
+  .opening__frame,
+  aside {
+    display: none !important;
+  }
+
+  .opening,
+  .moment,
+  .section-invitation,
+  .section-story,
+  .section-place,
+  .section-day,
+  .section-info,
+  .section-closing {
+    padding: 8mm 0 !important;
+    background: transparent !important;
+    break-inside: avoid;
+  }
+
+  .moment__image,
+  .section-story__album {
+    display: none !important;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  a[href]::after {
+    content: none;
+  }
+}

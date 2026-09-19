@@ -1,0 +1,107 @@
+/**
+ * Theme tokens — stationery identity “Una lettera d’amore dalla Puglia”.
+ * Applied as a class on <html>. Default: theme-mediterraneo.
+ *
+ * Contrast notes (approximate WCAG):
+ * - Forest #34473E on paper #FAF6EF ≈ 8.8:1
+ * - Bordeaux #793E49 on paper ≈ 6.7:1
+ * - Ivory on bordeaux ≈ 7.2:1
+ * - Muted forest mix used only for secondary text
+ */
+
+:root,
+html.theme-mediterraneo {
+  --color-paper: #faf6ef;
+  --color-bg: #faf6ef;
+  --color-bg-blush: #f3e8e3;
+  --color-text: #34473e;
+  --color-forest: #34473e;
+  --color-blush: #ebdad5;
+  --color-bordeaux: #793e49;
+  --color-sand: #d8c8b7;
+  --color-surface: #ebdad5;
+  --color-separator: #d8c8b7;
+  --color-accent: #793e49;
+  --color-on-text: #faf6ef;
+  --color-muted: #5a6b63;
+  --color-button: #793e49;
+  --color-button-text: #faf6ef;
+
+  --font-display: 'Cormorant Garamond', 'Palatino Linotype', Palatino, serif;
+  --font-script: 'Great Vibes', 'Snell Roundhand', 'Apple Chancery', cursive;
+  --font-body: 'Manrope', 'Segoe UI', sans-serif;
+  --text-display: clamp(3.5rem, 2rem + 8vw, 7.5rem);
+  --text-title: clamp(1.85rem, 1.4rem + 1.4vw, 2.75rem);
+  --text-body: clamp(1rem, 0.97rem + 0.12vw, 1.0625rem);
+  --text-small: clamp(0.8125rem, 0.78rem + 0.12vw, 0.875rem);
+  --leading-display: 0.92;
+  --leading-body: 1.65;
+  --tracking-display: 0.01em;
+
+  --radius-control: 2px;
+  --radius-soft: 1.35rem;
+  --stroke-thin: 1px;
+  --stroke-rule: 1px;
+
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1.15rem;
+  --space-lg: 1.75rem;
+  --space-xl: 2.5rem;
+  --space-section: clamp(2.5rem, 1.5rem + 5vw, 7rem);
+  --space-page-x: clamp(1.1rem, 4vw, 2.75rem);
+  --measure: 36rem;
+  --header-height: 3.1rem;
+  --invite-width: 46.5rem;
+
+  --paper-grain: url('/images/paper-grain.svg');
+  --decor-kind: olive;
+}
+
+html.theme-botanico {
+  --color-paper: #f4f1ea;
+  --color-bg: #f4f1ea;
+  --color-bg-blush: #e7eee8;
+  --color-text: #2c3b32;
+  --color-forest: #2c3b32;
+  --color-blush: #dce6df;
+  --color-bordeaux: #5d6f64;
+  --color-sand: #c9d2c8;
+  --color-surface: #dce6df;
+  --color-separator: #c9d2c8;
+  --color-accent: #5d6f64;
+  --color-on-text: #f4f1ea;
+  --color-muted: #4a5c52;
+  --color-button: #2c3b32;
+  --color-button-text: #f4f1ea;
+
+  --font-display: 'Cormorant Garamond', 'Palatino Linotype', Palatino, serif;
+  --font-script: 'Great Vibes', 'Snell Roundhand', 'Apple Chancery', cursive;
+  --font-body: 'Manrope', 'Segoe UI', sans-serif;
+
+  --decor-kind: leaf;
+}
+
+html.theme-classico {
+  --color-paper: #faf8f4;
+  --color-bg: #faf8f4;
+  --color-bg-blush: #f0e6d8;
+  --color-text: #2a2420;
+  --color-forest: #2a2420;
+  --color-blush: #eadfce;
+  --color-bordeaux: #7a4a32;
+  --color-sand: #d4cdc0;
+  --color-surface: #eadfce;
+  --color-separator: #d4cdc0;
+  --color-accent: #7a4a32;
+  --color-on-text: #faf8f4;
+  --color-muted: #5a534c;
+  --color-button: #7a4a32;
+  --color-button-text: #faf8f4;
+
+  --font-display: 'Cormorant Garamond', 'Palatino Linotype', Palatino, serif;
+  --font-script: 'Great Vibes', 'Snell Roundhand', 'Apple Chancery', cursive;
+  --font-body: 'Manrope', 'Segoe UI', sans-serif;
+
+  --decor-kind: rule;
+}

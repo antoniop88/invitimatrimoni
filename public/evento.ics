@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//upstudio//Invito Giulia Andrea//IT
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:giulia-andrea-20270619@upstudio
+DTSTAMP:20260101T120000Z
+DTSTART;TZID=Europe/Rome:20270619T163000
+DTEND;TZID=Europe/Rome:20270620T003000
+SUMMARY:Matrimonio Giulia & Andrea
+DESCRIPTION:Cerimonia e festeggiamenti — Masseria degli Ulivi\, Valle d'Itria.
+LOCATION:Valle d'Itria\, Puglia
+END:VEVENT
+END:VCALENDAR

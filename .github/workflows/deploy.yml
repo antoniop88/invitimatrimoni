@@ -1,0 +1,73 @@
+name: Deploy static site
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build static output
+        run: npm run generate
+
+      - name: Configure SSH key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+
+      - name: Debug key fingerprint
+        run: ssh-keygen -lf ~/.ssh/id_ed25519
+
+      - name: Add server host key
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+        run: |
+          if [ -z "$SSH_HOST" ]; then
+            echo "Missing secret SSH_HOST"
+            exit 1
+          fi
+          ssh-keyscan -p 22 -H "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Deploy via rsync
+        env:
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+          HESTIA_DOMAIN: ${{ secrets.HESTIA_DOMAIN }}
+        run: |
+          if [ -z "$SSH_HOST" ] || [ -z "$SSH_USER" ]; then
+            echo "Missing secrets SSH_HOST and/or SSH_USER"
+            exit 1
+          fi
+          if [ -z "$HESTIA_DOMAIN" ]; then
+            echo "Missing secret HESTIA_DOMAIN"
+            exit 1
+          fi
+          DEPLOY_PATH="/home/${SSH_USER}/web/${HESTIA_DOMAIN}/public_html/"
+          rsync -avz --delete \
+            -e "ssh -p 22 -i ~/.ssh/id_ed25519 -o IdentitiesOnly=yes" \
+            .output/public/ \
+            "${SSH_USER}@${SSH_HOST}:${DEPLOY_PATH}"
